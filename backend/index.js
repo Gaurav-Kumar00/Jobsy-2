@@ -17,7 +17,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 const corsOptions = {
-    origin: "https://jobsy-2-o2ht.vercel.app/",
+    origin: "https://jobsy-2-o2ht.vercel.app",
     credentials: true,
 };
 
