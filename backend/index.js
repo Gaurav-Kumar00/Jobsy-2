@@ -12,38 +12,22 @@ dotenv.config({});
 
 const app = express();
 
-// // middleware
-// app.use(express.json());
-// app.use(express.urlencoded({ extended: true }));
-// app.use(cookieParser());
-// const corsOptions = {
-//     origin: "https://jobsy-2-o2ht.vercel.app",
-//     credentials: true,
-// };
-
-const allowedOrigins = [
-    "https://jobsy-2.vercel.app", // your backend’s own domain (if you ever call itself)
-    "https://jobsy-2-o2ht.vercel.app", // your frontend domain
-];
-
+const FRONTEND_URL = process.env.FRONTEND_URL;
 const corsOptions = {
-    origin: (origin, callback) => {
-        // allow requests like curl/postman which have no origin header
+    origin(origin, callback) {
+        // allow Postman/curl (no origin)
         if (!origin) return callback(null, true);
-        if (allowedOrigins.includes(origin)) {
-            return callback(null, true);
-        }
-        callback(new Error("Not allowed by CORS"));
+        // only allow exactly your FRONTEND_URL
+        if (origin === FRONTEND_URL) return callback(null, true);
+        callback(new Error(`CORS blocked for ${origin}`));
     },
     credentials: true,
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
 };
 
-// apply CORS _before_ body-parsers and routes
 app.use(cors(corsOptions));
 app.options("*", cors(corsOptions));
-// —————————————————
-app.use(cors(corsOptions));
+// middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
