@@ -96,7 +96,6 @@
 //         `Server running on port ${PORT} (${process.env.NODE_ENV || "dev"})`
 //     );
 // });
-
 import express from "express";
 import cookieParser from "cookie-parser";
 import cors from "cors";
@@ -110,37 +109,46 @@ import applicationRoute from "./routes/application.route.js";
 dotenv.config();
 const app = express();
 
-// build the whitelist dynamically
-const allowedOrigins = [
-    process.env.FRONTEND_URL, // production front-end
-    ...(process.env.NODE_ENV !== "production"
-        ? ["http://localhost:5173"] // local dev
-        : []),
-    ...(process.env.VERCEL_URL // any Vercel preview or prod hostname
-        ? [`https://${process.env.VERCEL_URL}`]
-        : []),
-].filter(Boolean);
+// Primary production front-end URL (no trailing slash)
+const PROD_FE = process.env.FRONTEND_URL;
+// Local development origin
+const LOCAL_FE =
+    process.env.NODE_ENV !== "production" ? "http://localhost:5173" : null;
+// Vercel auto-hostname (preview + prod), e.g. "your-app-xyz.vercel.app"
+const VERCEL_FE = process.env.VERCEL_URL
+    ? `https://${process.env.VERCEL_URL}`
+    : null;
 
-app.use(
-    cors({
-        origin(origin, callback) {
-            console.log("CORS check for origin:", origin);
-            // allow tools (no origin) or if origin is in our whitelist
-            if (!origin || allowedOrigins.includes(origin)) {
-                return callback(null, true);
-            }
-            return callback(new Error(`CORS blocked for ${origin}`));
-        },
-        credentials: true,
-    })
-);
+// Build a whitelist of allowed origins
+const allowedOrigins = [PROD_FE, LOCAL_FE, VERCEL_FE].filter(Boolean);
 
-// standard middleware
+const corsOptions = {
+    origin(origin, callback) {
+        console.log("CORS check for origin:", origin);
+        // allow requests with no origin (e.g., curl, Postman)
+        if (!origin) return callback(null, true);
+        // allow any vercel.app subdomain
+        if (origin.endsWith(".vercel.app")) return callback(null, true);
+        // allow exact matches
+        if (allowedOrigins.includes(origin)) return callback(null, true);
+        // otherwise block
+        return callback(new Error(`CORS blocked for ${origin}`));
+    },
+    credentials: true,
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
+};
+
+// Apply CORS middleware
+app.use(cors(corsOptions));
+// Handle preflight requests on all routes
+app.options("*", cors(corsOptions));
+
+// Standard middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-// routes
+// API routes
 app.use("/api/v1/user", userRoute);
 app.use("/api/v1/company", companyRoute);
 app.use("/api/v1/job", jobRoute);
