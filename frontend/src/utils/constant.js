@@ -1,6 +1,4 @@
-// utils/constant.js
-export const USER_API_END_POINT = import.meta.env.VITE_USER_API_ENDPOINT;
-export const JOB_API_END_POINT = import.meta.env.VITE_JOB_API_ENDPOINT;
-export const APPLICATION_API_END_POINT = import.meta.env
-    .VITE_APPLICATION_API_ENDPOINT;
-export const COMPANY_API_END_POINT = import.meta.env.VITE_COMPANY_API_ENDPOINT;
+const USER_API_END_POINT = "http://localhost:5050/api/v1/user";
+const JOB_API_END_POINT = "http://localhost:5050/api/v1/job";
+const APPLICATION_API_END_POINT = "http://localhost:5050/api/v1/application";
+const COMPANY_API_END_POINT = "http://localhost:5050/api/v1/company";
