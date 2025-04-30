@@ -9,7 +9,7 @@ const useGetAllCompanies = () => {
         const fetchCompanies = async () => {
             try {
                 const res = await axios.get(
-                    `http://localhost:5050/api/v1/company/get`,
+                    `https://jobsy-g6v2.onrender.com/api/v1/company/get`,
                     { withCredentials: true }
                 );
                 console.log("called");

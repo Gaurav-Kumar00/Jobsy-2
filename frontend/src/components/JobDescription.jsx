@@ -23,7 +23,7 @@ const JobDescription = () => {
     const applyJobHandler = async () => {
         try {
             const res = await axios.get(
-                `http://localhost:5050/api/v1/application/apply/${jobId}`,
+                `https://jobsy-g6v2.onrender.com/api/v1/application/apply/${jobId}`,
                 { withCredentials: true }
             );
 
@@ -49,7 +49,7 @@ const JobDescription = () => {
         const fetchSingleJob = async () => {
             try {
                 const res = await axios.get(
-                    `http://localhost:5050/api/v1/job/get/${jobId}`,
+                    `https://jobsy-g6v2.onrender.com/api/v1/job/get/${jobId}`,
                     { withCredentials: true }
                 );
                 if (res.data.success) {

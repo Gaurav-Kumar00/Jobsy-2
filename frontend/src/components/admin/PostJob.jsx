@@ -51,7 +51,7 @@ const PostJob = () => {
         try {
             setLoading(true);
             const res = await axios.post(
-                `http://localhost:5050/api/v1/job/post`,
+                `https://jobsy-g6v2.onrender.com/api/v1/job/post`,
                 input,
                 {
                     headers: {

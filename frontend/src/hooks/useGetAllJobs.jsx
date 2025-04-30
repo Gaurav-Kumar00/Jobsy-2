@@ -10,7 +10,7 @@ const useGetAllJobs = () => {
         const fetchAllJobs = async () => {
             try {
                 const res = await axios.get(
-                    `http://localhost:5050/api/v1/job/get?keyword=${searchedQuery}`,
+                    `https://jobsy-g6v2.onrender.com/api/v1/job/get?keyword=${searchedQuery}`,
                     { withCredentials: true }
                 );
                 if (res.data.success) {

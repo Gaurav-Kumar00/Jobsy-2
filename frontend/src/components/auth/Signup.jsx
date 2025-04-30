@@ -45,7 +45,7 @@ const Signup = () => {
         try {
             dispatch(setLoading(true));
             const res = await axios.post(
-                `http://localhost:5050/api/v1/user/register`,
+                `https://jobsy-g6v2.onrender.com/api/v1/user/register`,
                 formData,
                 {
                     headers: { "Content-Type": "multipart/form-data" },

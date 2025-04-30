@@ -52,7 +52,7 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
         try {
             setLoading(true);
             const res = await axios.post(
-                `http://localhost:5050/api/v1/user/profile/update`,
+                `https://jobsy-g6v2.onrender.com/api/v1/user/profile/update`,
                 formData,
                 {
                     headers: {

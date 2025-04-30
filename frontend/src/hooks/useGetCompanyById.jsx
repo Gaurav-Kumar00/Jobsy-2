@@ -10,7 +10,7 @@ const useGetCompanyById = (companyId) => {
         const fetchSingleCompany = async () => {
             try {
                 const res = await axios.get(
-                    `http://localhost:5050/api/v1/company/get/${companyId}`,
+                    `https://jobsy-g6v2.onrender.com/api/v1/company/get/${companyId}`,
                     { withCredentials: true }
                 );
                 console.log(res.data.company);

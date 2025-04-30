@@ -24,7 +24,7 @@ const ApplicantsTable = () => {
         try {
             axios.defaults.withCredentials = true;
             const res = await axios.post(
-                `http://localhost:5050/api/v1/application/status/${id}/update`,
+                `https://jobsy-g6v2.onrender.com/api/v1/application/status/${id}/update`,
                 { status }
             );
             console.log(res);

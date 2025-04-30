@@ -17,7 +17,7 @@ const Navbar = () => {
     const logoutHandler = async () => {
         try {
             const res = await axios.get(
-                `http://localhost:5050/api/v1/user/logout`,
+                `https://jobsy-g6v2.onrender.com/api/v1/user/logout`,
                 {
                     withCredentials: true,
                 }
