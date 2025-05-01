@@ -143,7 +143,7 @@ const PostJob = () => {
                         <div>
                             <Label>Experience Level</Label>
                             <Input
-                                type="text"
+                                type="number"
                                 name="experience"
                                 value={input.experience}
                                 onChange={changeEventHandler}
