@@ -1,4 +1,4 @@
-# 🧠 Jobsy — Job & Internship Platform
+# 🧠 JobSy — Job & Internship Platform
 
 Jobsy is a full-stack MERN application that connects job seekers with companies. It provides an efficient system for **admins** to post jobs, manage applications, and for **applicants** to search, apply, and track their job applications.
 
